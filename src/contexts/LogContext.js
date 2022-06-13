@@ -1,11 +1,26 @@
 import React, {createContext, useState} from 'react';
+import {v4} from 'uuid';
 
-const LogContext = createContext({text: {}, setText: () => {}});
+const LogContext = createContext({
+  logs: {},
+  onCreate: ({title, body, date}) => {},
+});
 
 export function LogContextProvider({children}) {
-  const [text, setText] = useState();
+  const [logs, setLogs] = useState([]);
+
+  const onCreate = ({title, body, date}) => {
+    const log = {
+      id: v4(),
+      title,
+      body,
+      date,
+    };
+    setLogs([log, ...logs]);
+  };
+
   return (
-    <LogContext.Provider value={{text, setText}}>
+    <LogContext.Provider value={{logs, onCreate}}>
       {children}
     </LogContext.Provider>
   );
