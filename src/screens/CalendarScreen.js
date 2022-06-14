@@ -1,12 +1,8 @@
-import React, {useContext} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useContext, useRef} from 'react';
+import {Animated, Button, StyleSheet, Text, View} from 'react-native';
 
 function CalendarScreen() {
-  return (
-    <View style={styles.block}>
-      <Text>text</Text>
-    </View>
-  );
+  return <View style={styles.block}></View>;
 }
 
 const styles = StyleSheet.create({
