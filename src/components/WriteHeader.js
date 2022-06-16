@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import TransparentCircleButton from './TransparentCircleButton';
 import {useNavigation} from '@react-navigation/native';
 
-function WriteHeader({onSave}) {
+function WriteHeader({onSave, onAskRemove, isEditing}) {
   const navigation = useNavigation();
   const onGoBack = () => {
     navigation.pop();
@@ -17,11 +17,14 @@ function WriteHeader({onSave}) {
         color={'#424242'}
       />
       <View style={styles.buttons}>
-        <TransparentCircleButton
-          name={'delete-forever'}
-          color={'#ef5350'}
-          hasMarginRight
-        />
+        {isEditing && (
+          <TransparentCircleButton
+            name={'delete-forever'}
+            color={'#ef5350'}
+            hasMarginRight
+            onPress={onAskRemove}
+          />
+        )}
         <TransparentCircleButton
           name={'check'}
           color={'#009688'}
