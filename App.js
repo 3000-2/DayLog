@@ -4,13 +4,16 @@ import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {NavigationContainer} from '@react-navigation/native';
 import RootStack from './src/screens/RootStack';
 import LogContext, {LogContextProvider} from './src/contexts/LogContext';
+import {SearchContextProvider} from './src/contexts/SearchContext';
 
 function App() {
   return (
     <NavigationContainer>
-      <LogContextProvider>
-        <RootStack />
-      </LogContextProvider>
+      <SearchContextProvider>
+        <LogContextProvider>
+          <RootStack />
+        </LogContextProvider>
+      </SearchContextProvider>
     </NavigationContainer>
   );
 }
