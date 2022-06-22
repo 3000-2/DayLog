@@ -3,6 +3,7 @@ import {Animated, Button, StyleSheet, Text, View} from 'react-native';
 import {CalendarView} from '../components/CalendarView';
 import LogContext from '../contexts/LogContext';
 import {format} from 'date-fns';
+import FeedList from '../components/FeedList';
 
 function CalendarScreen() {
   const {logs} = useContext(LogContext);
@@ -15,14 +16,20 @@ function CalendarScreen() {
     acc[formattedDate] = {marked: true};
     return acc;
   }, {});
+
+  const filteredLogs = logs.filter(
+    log => format(new Date(log.date), 'yyy-MM-dd') === selectedDate,
+  );
   return (
-    <View style={styles.block}>
-      <CalendarView
-        markedDates={markedDates}
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
-      />
-    </View>
+    <FeedList
+      logs={filteredLogs}
+      ListHeaderComponent={
+        <CalendarView
+          markedDates={markedDates}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+        />
+      }></FeedList>
   );
 }
 
