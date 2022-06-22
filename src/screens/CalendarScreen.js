@@ -1,4 +1,4 @@
-import React, {useContext, useRef, useState} from 'react';
+import React, {useContext, useMemo, useRef, useState} from 'react';
 import {Animated, Button, StyleSheet, Text, View} from 'react-native';
 import {CalendarView} from '../components/CalendarView';
 import LogContext from '../contexts/LogContext';
@@ -11,11 +11,15 @@ function CalendarScreen() {
     format(new Date(), 'yyyy-MM-dd'),
   );
 
-  const markedDates = logs.reduce((acc, cur) => {
-    const formattedDate = format(new Date(cur.date), 'yyyy-MM-dd');
-    acc[formattedDate] = {marked: true};
-    return acc;
-  }, {});
+  const markedDates = useMemo(
+    () =>
+      logs.reduce((acc, cur) => {
+        const formattedDate = format(new Date(cur.date), 'yyyy-MM-dd');
+        acc[formattedDate] = {marked: true};
+        return acc;
+      }, {}),
+    [logs],
+  );
 
   const filteredLogs = logs.filter(
     log => format(new Date(log.date), 'yyy-MM-dd') === selectedDate,
